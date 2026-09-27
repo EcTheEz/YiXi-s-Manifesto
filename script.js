@@ -84,7 +84,7 @@ const SITE_CONTENT = {
    Paste your Google Form URL below. Until you do, the feedback
    button shows a friendly message instead of navigating anywhere.
 */
-const FEEDBACK_URL = "PASTE-YOUR-GOOGLE-FORM-LINK-HERE";
+const FEEDBACK_URL = "https://forms.cloud.microsoft/r/Xu5AvaapsF";
 
 
 /* ==========================================================================
