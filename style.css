@@ -1,5 +1,6 @@
 /* ==========================================================================
    YI XI — MANIFESTO 2026
+   Dark-blue fictional banknote aesthetic.
    Stylesheet organised in sections:
    1. Reset & variables
    2. Base typography
@@ -9,11 +10,12 @@
    6. Sections (shared)
    7. Proposal cards
    8. Promise grid + timeline
-   9. Progress list
-   10. Feedback
-   11. Footer
-   12. Motion & focus
-   13. Responsive (desktop)
+   9. Student Voice Board example
+   10. Progress list
+   11. Feedback
+   12. Footer
+   13. Motion & focus
+   14. Responsive (desktop)
    ========================================================================== */
 
 /* ---------- 1. Reset & variables ---------- */
@@ -24,16 +26,26 @@ html, body { margin: 0; padding: 0; }
 }
 
 :root {
-  --ink: #1A160F;
-  --ink-soft: #322B1E;
-  --paper: #F4EEDC;
-  --paper-dim: #E9E0C6;
-  --brass: #9C7A2E;
-  --brass-deep: #7C5F22;
-  --oxblood: #6E2A2A;
-  --line: rgba(26, 22, 15, 0.22);
-  --line-soft: rgba(26, 22, 15, 0.12);
-  --shadow: 0 10px 30px rgba(26, 22, 15, 0.12);
+  /* Dark-blue banknote palette */
+  --navy-deep: #081A30;   /* deepest — nav, hero, footer, dark section band */
+  --navy: #0F2A4A;        /* base section background */
+  --navy-panel: #17395E;  /* elevated surface — cards, panels */
+  --navy-panel-soft: #1D4269; /* alternate panel tone */
+
+  --text: #F4F1E4;                       /* off-white body text */
+  --text-soft: rgba(244, 241, 228, 0.74);
+  --text-faint: rgba(244, 241, 228, 0.5);
+
+  --brass: #D8B968;       /* gold engraving / accent */
+  --brass-bright: #EACB7E;
+  --brass-deep: #B4903F;
+
+  --caution: #E4897D;     /* warm coral-red for "not approved" / caution notes */
+  --confirmed: #7FD79B;   /* muted green for confirmed/implemented */
+
+  --line: rgba(244, 241, 228, 0.2);
+  --line-soft: rgba(244, 241, 228, 0.1);
+  --shadow: 0 12px 34px rgba(2, 8, 17, 0.45);
 
   --font-display: Georgia, "Iowan Old Style", "Palatino Linotype", "Times New Roman", serif;
   --font-body: Georgia, "Iowan Old Style", "Palatino Linotype", "Times New Roman", serif;
@@ -44,11 +56,14 @@ html, body { margin: 0; padding: 0; }
 }
 
 body {
-  background: var(--paper);
-  color: var(--ink);
+  background: var(--navy);
+  color: var(--text);
   font-family: var(--font-body);
   line-height: 1.55;
   -webkit-font-smoothing: antialiased;
+  /* very subtle paper/engraving grain */
+  background-image:
+    repeating-linear-gradient(0deg, rgba(244,241,228,0.012) 0px, rgba(244,241,228,0.012) 1px, transparent 1px, transparent 3px);
 }
 
 img { max-width: 100%; display: block; }
@@ -64,17 +79,18 @@ img { max-width: 100%; display: block; }
 .skip-link {
   position: absolute;
   left: 1rem; top: -3rem;
-  background: var(--ink);
-  color: var(--paper);
+  background: var(--brass);
+  color: var(--navy-deep);
   padding: 0.6rem 1rem;
   border-radius: 2px;
   transition: top 0.2s ease;
   z-index: 100;
+  font-weight: 600;
 }
 .skip-link:focus { top: 1rem; }
 
 /* ---------- 2. Base typography ---------- */
-h1, h2, h3 { font-family: var(--font-display); font-weight: 600; margin: 0; }
+h1, h2, h3 { font-family: var(--font-display); font-weight: 600; margin: 0; color: var(--text); }
 p { margin: 0 0 1rem; max-width: var(--measure); }
 a { color: inherit; }
 
@@ -83,7 +99,7 @@ a { color: inherit; }
   font-size: 0.72rem;
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: var(--brass-deep);
+  color: var(--brass);
   margin: 0 0 0.6rem;
 }
 
@@ -93,13 +109,15 @@ h2 {
   margin-bottom: 0.7rem;
 }
 
-.section-intro { color: var(--ink-soft); max-width: 52ch; }
+.section-intro { color: var(--text-soft); max-width: 52ch; }
 
 /* ---------- 3. Layout utilities ---------- */
 .section {
   padding: 4rem var(--gutter) 3.5rem;
   border-bottom: 1px solid var(--line-soft);
+  background: var(--navy);
 }
+.section--dark { background: var(--navy-deep); }
 .section-head { margin-bottom: 2.25rem; }
 
 .btn {
@@ -115,24 +133,25 @@ h2 {
   border-radius: 2px;
   border: 1px solid transparent;
   min-height: 48px;
-  transition: transform 0.15s ease, background 0.15s ease, color 0.15s ease;
+  transition: transform 0.15s ease, background 0.15s ease, color 0.15s ease, border-color 0.15s ease;
 }
 .btn:active { transform: translateY(1px); }
 
 .btn-primary {
-  background: var(--ink);
-  color: var(--paper);
-  border-color: var(--ink);
+  background: var(--brass);
+  color: var(--navy-deep);
+  border-color: var(--brass);
+  font-weight: 600;
 }
-.btn-primary:hover { background: var(--brass-deep); border-color: var(--brass-deep); }
-.btn-primary:focus-visible { outline: 3px solid var(--brass); outline-offset: 2px; }
+.btn-primary:hover { background: var(--brass-bright); border-color: var(--brass-bright); }
+.btn-primary:focus-visible { outline: 3px solid var(--brass-bright); outline-offset: 2px; }
 
 /* ---------- 4. Navigation ---------- */
 .site-nav {
   position: sticky;
   top: 0;
   z-index: 50;
-  background: rgba(244, 238, 220, 0.94);
+  background: rgba(8, 26, 48, 0.92);
   backdrop-filter: blur(6px);
   border-bottom: 1px solid var(--line);
 }
@@ -149,7 +168,7 @@ h2 {
   font-family: var(--font-mono);
   font-size: 0.85rem;
   letter-spacing: 0.12em;
-  color: var(--ink);
+  color: var(--brass);
   border: 1px solid var(--line);
   padding: 0.3rem 0.55rem;
   border-radius: 2px;
@@ -167,12 +186,12 @@ h2 {
   gap: 4px;
   cursor: pointer;
 }
-.nav-toggle-line { width: 20px; height: 1.5px; background: var(--ink); }
+.nav-toggle-line { width: 20px; height: 1.5px; background: var(--text); }
 
 .nav-links {
   position: absolute;
   top: 100%; left: 0; right: 0;
-  background: var(--paper);
+  background: var(--navy-deep);
   border-bottom: 1px solid var(--line);
   display: flex;
   flex-direction: column;
@@ -195,6 +214,7 @@ h2 {
   letter-spacing: 0.08em;
   text-transform: uppercase;
   text-decoration: none;
+  color: var(--text);
   padding: 0.75rem 0.25rem;
   border-bottom: 1px solid var(--line-soft);
 }
@@ -205,8 +225,8 @@ h2 {
   padding: 2.5rem var(--gutter) 3rem;
   position: relative;
   background:
-    repeating-radial-gradient(circle at 50% 0%, rgba(156,122,46,0.05) 0px, rgba(156,122,46,0.05) 1px, transparent 2px, transparent 6px),
-    var(--paper);
+    repeating-radial-gradient(circle at 50% 0%, rgba(216,185,104,0.06) 0px, rgba(216,185,104,0.06) 1px, transparent 2px, transparent 6px),
+    var(--navy-deep);
 }
 .hero-frame {
   position: relative;
@@ -232,7 +252,7 @@ h2 {
   font-size: 0.78rem;
   letter-spacing: 0.16em;
   text-transform: uppercase;
-  color: var(--brass-deep);
+  color: var(--brass);
   margin-bottom: 1.4rem;
 }
 .hero-headline {
@@ -240,10 +260,11 @@ h2 {
   line-height: 1.04;
   letter-spacing: -0.01em;
   margin-bottom: 1rem;
+  color: var(--text);
 }
 .hero-sub {
   font-size: 1.05rem;
-  color: var(--ink-soft);
+  color: var(--text-soft);
   margin: 0 auto 1.9rem;
 }
 .hero-cta { margin-bottom: 2rem; }
@@ -257,22 +278,13 @@ h2 {
   border-top: 1px solid var(--line-soft);
   font-family: var(--font-mono);
 }
-.hero-serial { font-size: 0.8rem; letter-spacing: 0.05em; }
+.hero-serial { font-size: 0.8rem; letter-spacing: 0.05em; color: var(--text); }
 .hero-tag {
   font-size: 0.68rem;
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: var(--ink-soft);
+  color: var(--text-faint);
 }
-
-/* ---------- 6. Dark section variant ---------- */
-.section--dark {
-  background: var(--ink);
-  color: var(--paper);
-  border-bottom-color: rgba(244,238,220,0.14);
-}
-.section--dark .section-eyebrow { color: var(--brass); }
-.section--dark .section-intro { color: rgba(244,238,220,0.72); }
 
 /* ---------- 7. Proposal cards ---------- */
 .card-stack {
@@ -283,8 +295,9 @@ h2 {
 .card {
   border: 1px solid var(--line);
   border-radius: 3px;
-  background: var(--paper-dim);
+  background: var(--navy-panel);
   overflow: hidden;
+  box-shadow: var(--shadow);
 }
 .card-head {
   width: 100%;
@@ -303,23 +316,23 @@ h2 {
 .card-number {
   font-family: var(--font-mono);
   font-size: 0.85rem;
-  color: var(--brass-deep);
+  color: var(--brass);
   flex-shrink: 0;
 }
-.card-titles { display: flex; flex-direction: column; gap: 0.15rem; flex: 1; }
+.card-titles { display: flex; flex-direction: column; gap: 0.15rem; flex: 1; min-width: 0; }
 .card-kicker {
   font-family: var(--font-mono);
   font-size: 0.68rem;
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: var(--ink-soft);
+  color: var(--text-faint);
 }
-.card-title { font-family: var(--font-display); font-size: 1.08rem; font-weight: 600; }
+.card-title { font-family: var(--font-display); font-size: 1.02rem; font-weight: 600; letter-spacing: 0.01em; color: var(--text); }
 
 .card-chevron {
   width: 10px; height: 10px;
-  border-right: 1.5px solid var(--ink);
-  border-bottom: 1.5px solid var(--ink);
+  border-right: 1.5px solid var(--text);
+  border-bottom: 1.5px solid var(--text);
   transform: rotate(45deg);
   transition: transform 0.2s ease;
   flex-shrink: 0;
@@ -341,21 +354,21 @@ h2 {
   font-size: 0.68rem;
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: var(--brass-deep);
+  color: var(--brass);
   margin: 1rem 0 0.35rem;
 }
-.card-body p { color: var(--ink-soft); }
+.card-body p { color: var(--text-soft); }
 .card-note {
   font-size: 0.88rem;
   font-style: italic;
-  color: var(--oxblood);
+  color: var(--caution);
   border-top: 1px solid var(--line-soft);
   padding-top: 0.85rem;
   margin-top: 1rem;
 }
-.detail-list { margin: 0 0 1rem; padding-left: 1.2rem; color: var(--ink-soft); }
+.card-note--confirmed { color: var(--confirmed); }
+.detail-list { margin: 0 0 1rem; padding-left: 1.2rem; color: var(--text-soft); }
 .detail-list li { margin-bottom: 0.3rem; }
-.card-note--confirmed { color: #2E5C2A; }
 
 .mechanism {
   display: flex;
@@ -371,21 +384,70 @@ h2 {
   border: 1px solid var(--line);
   padding: 0.4rem 0.7rem;
   border-radius: 2px;
-  background: var(--paper);
+  background: var(--navy-deep);
+  color: var(--text);
 }
 .mechanism li:not(:last-child)::after,
-.mechanism--flow span:not(:last-child)::after { content: "→"; margin-left: 0.5rem; color: var(--brass-deep); }
+.mechanism--flow span:not(:last-child)::after { content: "→"; margin-left: 0.5rem; color: var(--brass); }
 .mechanism--flow { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 1rem; }
 .mechanism--center { justify-content: center; margin: 1.75rem auto 2.25rem; }
 
-/* ---------- Student Voice Board example ---------- */
+/* ---------- 8. Promise grid + timeline ---------- */
+.promise-grid {
+  display: grid;
+  gap: 1.1rem;
+  grid-template-columns: 1fr;
+  margin-bottom: 2.75rem;
+}
+.promise-step {
+  border: 1px solid var(--line);
+  border-radius: 3px;
+  padding: 1.3rem 1.1rem;
+  background: var(--navy-panel);
+}
+.promise-number {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--brass);
+  display: block;
+  margin-bottom: 0.4rem;
+}
+.promise-step h3 { font-size: 1.15rem; margin: 0.5rem 0 0.4rem; color: var(--text); }
+.promise-step p { color: var(--text-soft); margin: 0; }
+
+.promise-grid--light .promise-step { background: var(--navy-panel-soft); }
+
+.timeline {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+}
+.timeline-step {
+  border: 1px solid var(--line);
+  padding: 0.5rem 0.75rem;
+  border-radius: 2px;
+  color: var(--text);
+  background: var(--navy-panel);
+}
+.timeline-step:not(:last-child)::after { content: "↓"; display: block; text-align: center; color: var(--brass); margin-top: 0.3rem; }
+.timeline-note {
+  margin-top: 1.1rem;
+  color: var(--text-soft);
+  font-size: 0.92rem;
+}
+
+/* ---------- 9. Student Voice Board example ---------- */
 .board-example { max-width: 46rem; margin: 0 auto 1.5rem; }
 .board-disclaimer {
   font-family: var(--font-mono);
   font-size: 0.72rem;
   letter-spacing: 0.06em;
   text-transform: uppercase;
-  color: var(--oxblood);
+  color: var(--caution);
   text-align: center;
   margin-bottom: 1.1rem;
 }
@@ -396,89 +458,36 @@ h2 {
   margin-bottom: 1.5rem;
 }
 .sticky-note {
-  background: #F6E9A8;
-  border: 1px solid rgba(26,22,15,0.15);
+  background: #F1E3AC;
+  color: #2B2411;
+  border: 1px solid rgba(0,0,0,0.15);
   border-radius: 2px;
   padding: 1rem 1rem 1.1rem;
   box-shadow: var(--shadow);
   transform: rotate(-1deg);
 }
-.sticky-note:nth-child(2) { transform: rotate(0.8deg); background: #F0DDAE; }
-.sticky-note:nth-child(3) { transform: rotate(-0.5deg); background: #EFE3B8; }
+.sticky-note:nth-child(2) { transform: rotate(0.8deg); background: #E9D68F; }
+.sticky-note:nth-child(3) { transform: rotate(-0.5deg); background: #EFDCA0; }
 .sticky-label {
   font-family: var(--font-mono);
   font-size: 0.66rem;
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: var(--ink-soft);
+  color: #55471E;
   margin: 0 0 0.4rem;
 }
-.sticky-note p:last-child { margin: 0; font-style: italic; }
+.sticky-note p:last-child { margin: 0; font-style: italic; max-width: none; }
 
 .board-response {
   border: 1px solid var(--line);
   border-radius: 3px;
-  background: var(--paper-dim);
+  background: var(--navy-panel);
   padding: 1.1rem 1.2rem;
 }
-.board-line { margin: 0 0 0.4rem; }
-.board-note { margin: 0.6rem 0 0; font-size: 0.88rem; color: var(--ink-soft); }
+.board-line { margin: 0 0 0.4rem; color: var(--text); }
+.board-note { margin: 0.6rem 0 0; font-size: 0.88rem; color: var(--text-soft); }
 
-.promise-grid--light .promise-step {
-  border-color: var(--line);
-  background: var(--paper-dim);
-}
-.promise-step--light .promise-number {
-  font-family: var(--font-mono);
-  font-size: 0.85rem;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  color: var(--brass-deep);
-  display: block;
-  margin-bottom: 0.4rem;
-}
-.promise-step--light p { color: var(--ink-soft); margin: 0; }
-
-/* ---------- 8. Promise grid + timeline ---------- */
-.promise-grid {
-  display: grid;
-  gap: 1.1rem;
-  grid-template-columns: 1fr;
-  margin-bottom: 2.75rem;
-}
-.promise-step {
-  border: 1px solid rgba(244,238,220,0.2);
-  border-radius: 3px;
-  padding: 1.3rem 1.1rem;
-}
-.promise-number {
-  font-family: var(--font-mono);
-  font-size: 0.75rem;
-  color: var(--brass);
-}
-.promise-step h3 { font-size: 1.15rem; margin: 0.5rem 0 0.4rem; }
-.promise-step p { color: rgba(244,238,220,0.72); margin: 0; }
-
-.timeline {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem;
-  font-family: var(--font-mono);
-  font-size: 0.75rem;
-}
-.timeline-step {
-  border: 1px solid rgba(244,238,220,0.28);
-  padding: 0.5rem 0.75rem;
-  border-radius: 2px;
-}
-.timeline-step:not(:last-child)::after { content: "↓"; display: block; text-align: center; color: var(--brass); margin-top: 0.3rem; }
-.timeline-note {
-  margin-top: 1.1rem;
-  color: rgba(244,238,220,0.72);
-  font-size: 0.92rem;
-}
-
-/* ---------- 9. Progress list ---------- */
+/* ---------- 10. Progress list ---------- */
 .progress-list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 0.75rem; }
 .progress-item {
   display: flex;
@@ -487,9 +496,9 @@ h2 {
   border: 1px solid var(--line);
   border-radius: 3px;
   padding: 0.95rem 1rem;
-  background: var(--paper-dim);
+  background: var(--navy-panel);
 }
-.progress-badge {
+.status-badge {
   font-family: var(--font-mono);
   font-size: 0.7rem;
   letter-spacing: 0.06em;
@@ -499,44 +508,43 @@ h2 {
   border: 1px solid var(--line);
   white-space: nowrap;
   flex-shrink: 0;
-  transition: transform 0.25s ease;
 }
-.progress-item[data-just-set] .progress-badge { transform: scale(1.08); }
 .progress-text { display: flex; flex-direction: column; gap: 0.2rem; }
-.progress-title { font-weight: 600; }
-.progress-note { font-size: 0.82rem; color: var(--ink-soft); font-style: italic; }
-.progress-footnote { margin-top: 1.2rem; font-size: 0.88rem; color: var(--ink-soft); font-style: italic; }
+.progress-title { font-weight: 600; color: var(--text); }
+.progress-note { font-size: 0.82rem; color: var(--text-soft); font-style: italic; }
+.progress-footnote { margin-top: 1.2rem; font-size: 0.88rem; color: var(--text-soft); font-style: italic; }
 
-.status-proposed { background: #FBF0C8; color: #7A5E12; border-color: #E4CE86; }
-.status-discussion { background: #FBE2C6; color: #8A4E12; border-color: #E9BE86; }
-.status-implemented { background: #DCEBD9; color: #2E5C2A; border-color: #A9CBA2; }
-.status-notapproved { background: #F3D9D9; color: #7A2626; border-color: #E0A6A6; }
+.status-proposed { background: rgba(216,185,104,0.14); color: var(--brass-bright); border-color: rgba(216,185,104,0.4); }
+.status-discussion { background: rgba(224,140,66,0.14); color: #F0A868; border-color: rgba(224,140,66,0.4); }
+.status-confirmed { background: rgba(127,215,155,0.14); color: var(--confirmed); border-color: rgba(127,215,155,0.4); }
+.status-notapproved { background: rgba(228,137,125,0.14); color: var(--caution); border-color: rgba(228,137,125,0.4); }
 
-/* ---------- 10. Feedback ---------- */
+/* ---------- 11. Feedback ---------- */
 .section--feedback { text-align: center; }
 .feedback-frame { max-width: 34rem; margin: 0 auto; }
 .feedback-frame .section-intro { margin-left: auto; margin-right: auto; }
-.feedback-small { font-size: 0.82rem; color: var(--ink-soft); margin-top: 0.9rem; font-family: var(--font-mono); letter-spacing: 0.02em; }
-.feedback-hint { font-size: 0.82rem; color: var(--oxblood); margin-top: 0.6rem; font-family: var(--font-mono); }
-.feedback-hint code { background: var(--paper-dim); padding: 0.1rem 0.3rem; border-radius: 2px; }
+.feedback-small { font-size: 0.82rem; color: var(--text-soft); margin-top: 0.9rem; font-family: var(--font-mono); letter-spacing: 0.02em; }
+.feedback-hint { font-size: 0.82rem; color: var(--caution); margin-top: 0.6rem; font-family: var(--font-mono); }
+.feedback-hint code { background: var(--navy-panel); padding: 0.1rem 0.3rem; border-radius: 2px; }
 .feedback-flow-wrap { margin-top: 2.5rem; padding-top: 2rem; border-top: 1px solid var(--line-soft); }
-.feedback-flow-note { font-size: 0.88rem; color: var(--ink-soft); font-style: italic; max-width: 40ch; margin: 0 auto; }
+.feedback-flow-note { font-size: 0.88rem; color: var(--text-soft); font-style: italic; max-width: 40ch; margin: 0 auto; }
 
-/* ---------- 11. Footer ---------- */
+/* ---------- 12. Footer ---------- */
 .site-footer {
-  background: var(--ink);
-  color: var(--paper);
+  background: var(--navy-deep);
+  color: var(--text);
   text-align: center;
   padding: 2.5rem var(--gutter) 3rem;
+  border-top: 1px solid var(--line);
 }
 .footer-title { font-family: var(--font-display); font-size: 1.1rem; margin: 0 0 0.3rem; }
 .footer-tag { font-family: var(--font-mono); font-size: 0.75rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--brass); margin: 0 0 1rem; }
-.footer-note { font-family: var(--font-mono); font-size: 0.68rem; letter-spacing: 0.08em; text-transform: uppercase; color: rgba(244,238,220,0.6); margin: 0 0 1.2rem; }
-.footer-disclaimer { font-size: 0.8rem; color: rgba(244,238,220,0.6); max-width: 34rem; margin: 0 auto; }
+.footer-note { font-family: var(--font-mono); font-size: 0.68rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-faint); margin: 0 0 1.2rem; }
+.footer-disclaimer { font-size: 0.8rem; color: var(--text-faint); max-width: 34rem; margin: 0 auto; }
 
-/* ---------- 12. Motion & focus ---------- */
+/* ---------- 13. Motion & focus ---------- */
 a:focus-visible, button:focus-visible {
-  outline: 3px solid var(--brass);
+  outline: 3px solid var(--brass-bright);
   outline-offset: 2px;
 }
 
@@ -548,7 +556,7 @@ a:focus-visible, button:focus-visible {
   .reveal { opacity: 1; transform: none; }
 }
 
-/* ---------- 13. Responsive (desktop) ---------- */
+/* ---------- 14. Responsive (desktop) ---------- */
 @media (min-width: 720px) {
   .nav-toggle { display: none; }
   .nav-links {
