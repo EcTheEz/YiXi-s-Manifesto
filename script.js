@@ -86,6 +86,10 @@ const SITE_CONTENT = {
 */
 const FEEDBACK_URL = "https://forms.cloud.microsoft/Pages/ResponsePage.aspx?id=1EHqx3BYj0-UfvGGxtWf0jTcBCBtgwVDsNsmy9lNGnxUOVlKTTYzSU5RM01YTkFJNVpORVZESEVONi4u";
 
+// Paste your school's official Student Council website below.
+// Until you do, the footer link stays hidden rather than pointing nowhere.
+const STUDENT_COUNCIL_URL = "PASTE-YOUR-STUDENT-COUNCIL-WEBSITE-HERE";
+
 
 /* ==========================================================================
    SITE FUNCTIONALITY — rendering and interaction. Not usually edited.
@@ -319,6 +323,24 @@ setUpCards();
       event.preventDefault();
       if (hint) hint.hidden = false;
     });
+  }
+})();
+
+/* ---------------------------------------------------------------------
+   Student Council footer link: hidden until a real URL is set
+   --------------------------------------------------------------------- */
+(function setUpStudentCouncilLink() {
+  const link = document.getElementById("stuco-link");
+  if (!link) return;
+
+  const isPlaceholder = !STUDENT_COUNCIL_URL || STUDENT_COUNCIL_URL.indexOf("PASTE-YOUR") === 0;
+
+  if (isPlaceholder) {
+    link.style.display = "none";
+  } else {
+    link.href = STUDENT_COUNCIL_URL;
+    link.target = "_blank";
+    link.rel = "noopener noreferrer";
   }
 })();
 
