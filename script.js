@@ -308,7 +308,7 @@ setUpCards();
   const hint = document.getElementById("feedback-hint");
   if (!button) return;
 
-  const isPlaceholder = !FEEDBACK_URL || FEEDBACK_URL === "https://forms.cloud.microsoft/Pages/ResponsePage.aspx?id=1EHqx3BYj0-UfvGGxtWf0jTcBCBtgwVDsNsmy9lNGnxUOVlKTTYzSU5RM01YTkFJNVpORVZESEVONi4u";
+  const isPlaceholder = !FEEDBACK_URL || FEEDBACK_URL === "https://forms.cloud.microsoft/r/Xu5AvaapsF";
 
   if (!isPlaceholder) {
     button.href = FEEDBACK_URL;
