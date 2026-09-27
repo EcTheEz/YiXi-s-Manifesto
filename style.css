@@ -164,7 +164,27 @@ h2 {
   margin: 0 auto;
 }
 .nav-mark { text-decoration: none; display: flex; align-items: center; gap: 0.55rem; }
-.nav-logo { height: 28px; width: 28px; object-fit: contain; border-radius: 2px; display: block; }
+/* Logo crop control: if your logo.png has extra transparent padding
+   around the mark, raise --logo-zoom (e.g. 1.3, 1.6...) until the
+   mark fills its box. This crops in on the image via CSS — you don't
+   need to re-export the file. Lower it back towards 1 if it overcrops. */
+:root { --logo-zoom: 1; }
+
+.nav-logo-frame, .hero-logo-frame, .footer-logo-frame {
+  overflow: hidden;
+  display: block;
+  flex-shrink: 0;
+}
+.nav-logo-frame img, .hero-logo-frame img, .footer-logo-frame img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  transform: scale(var(--logo-zoom));
+  transform-origin: center;
+}
+.nav-logo-frame { width: 28px; height: 28px; border-radius: 2px; }
+.hero-logo-frame { width: 56px; height: 56px; border-radius: 3px; margin: 0 auto 1.4rem; }
+.footer-logo-frame { width: 36px; height: 36px; border-radius: 2px; margin: 0 auto 1rem; }
 .nav-mark-serial {
   font-family: var(--font-mono);
   font-size: 0.85rem;
@@ -256,7 +276,6 @@ h2 {
   color: var(--brass);
   margin-bottom: 1.4rem;
 }
-.hero-logo { width: 56px; height: 56px; object-fit: contain; margin: 0 auto 1.4rem; border-radius: 3px; }
 .hero-headline {
   font-size: clamp(2.4rem, 10vw, 4rem);
   line-height: 1.04;
@@ -444,15 +463,6 @@ h2 {
 
 /* ---------- 9. Student Voice Board example ---------- */
 .board-example { max-width: 46rem; margin: 0 auto 1.5rem; }
-.board-disclaimer {
-  font-family: var(--font-mono);
-  font-size: 0.72rem;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  color: var(--caution);
-  text-align: center;
-  margin-bottom: 1.1rem;
-}
 .sticky-row {
   display: grid;
   grid-template-columns: 1fr;
@@ -523,12 +533,20 @@ h2 {
 
 /* ---------- 11. Feedback ---------- */
 .section--feedback { text-align: center; }
-.feedback-frame { max-width: 34rem; margin: 0 auto; }
-.feedback-frame .section-intro { margin-left: auto; margin-right: auto; }
+.feedback-frame {
+  max-width: 34rem;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.feedback-frame .section-eyebrow,
+.feedback-frame h2 { text-align: center; }
+.feedback-frame .section-intro { margin-left: auto; margin-right: auto; text-align: center; }
+.feedback-flow-wrap { width: 100%; margin-top: 2.5rem; padding-top: 2rem; border-top: 1px solid var(--line-soft); display: flex; flex-direction: column; align-items: center; }
 .feedback-small { font-size: 0.82rem; color: var(--text-soft); margin-top: 0.9rem; font-family: var(--font-mono); letter-spacing: 0.02em; }
 .feedback-hint { font-size: 0.82rem; color: var(--caution); margin-top: 0.6rem; font-family: var(--font-mono); }
 .feedback-hint code { background: var(--navy-panel); padding: 0.1rem 0.3rem; border-radius: 2px; }
-.feedback-flow-wrap { margin-top: 2.5rem; padding-top: 2rem; border-top: 1px solid var(--line-soft); }
 .feedback-flow-note { font-size: 0.88rem; color: var(--text-soft); font-style: italic; max-width: 40ch; margin: 0 auto; }
 
 /* ---------- 12. Footer ---------- */
@@ -539,11 +557,22 @@ h2 {
   padding: 2.5rem var(--gutter) 3rem;
   border-top: 1px solid var(--line);
 }
-.footer-logo { width: 36px; height: 36px; object-fit: contain; margin: 0 auto 1rem; border-radius: 2px; }
 .footer-title { font-family: var(--font-display); font-size: 1.1rem; margin: 0 0 0.3rem; }
 .footer-tag { font-family: var(--font-mono); font-size: 0.75rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--brass); margin: 0 0 1rem; }
 .footer-note { font-family: var(--font-mono); font-size: 0.68rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-faint); margin: 0 0 1.2rem; }
 .footer-disclaimer { font-size: 0.8rem; color: var(--text-faint); max-width: 34rem; margin: 0 auto; }
+.footer-link {
+  display: inline-block;
+  margin-top: 1.4rem;
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  letter-spacing: 0.04em;
+  color: var(--brass);
+  text-decoration: none;
+  border-bottom: 1px solid var(--line);
+  padding-bottom: 0.2rem;
+}
+.footer-link:hover { color: var(--brass-bright); border-color: var(--brass-bright); }
 
 /* ---------- 13. Motion & focus ---------- */
 a:focus-visible, button:focus-visible {
