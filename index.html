@@ -24,7 +24,9 @@
            folder (next to index.html) and it will appear here automatically.
            If no file is found, this just stays hidden and the text mark
            to the right still works fine on its own. -->
-      <img class="nav-logo" src="logo.png" alt="" width="28" height="28" onerror="this.style.display='none'">
+      <span class="nav-logo-frame">
+        <img src="logo.png" alt="" onerror="this.parentElement.style.display='none'">
+      </span>
       <span class="nav-mark-serial">YX·26</span>
     </a>
     <button class="nav-toggle" id="nav-toggle" aria-expanded="false" aria-controls="nav-links">
@@ -57,7 +59,9 @@
       <p class="hero-eyebrow" id="hero-eyebrow">Yi Xi · Manifesto 2026</p>
 
       <!-- Same logo.png file as the nav — shown larger here. Stays hidden if missing. -->
-      <img class="hero-logo" src="logo.png" alt="" width="56" height="56" onerror="this.style.display='none'">
+      <span class="hero-logo-frame">
+        <img src="logo.png" alt="" onerror="this.parentElement.style.display='none'">
+      </span>
 
       <h1 class="hero-headline" id="hero-headline">
         Your voice<br>has value.
@@ -97,7 +101,6 @@
     </div>
 
     <div class="board-example" aria-label="Example of how the Student Voice Board works">
-      <p class="board-disclaimer">Example notes below — not real student submissions.</p>
       <div class="sticky-row">
         <div class="sticky-note">
           <p class="sticky-label">Idea</p>
@@ -216,7 +219,7 @@
 
       <!-- Button target is set from FEEDBACK_URL at the top of script.js -->
       <a href="#" id="feedback-btn" class="btn btn-primary">Give your feedback →</a>
-      <p class="feedback-small">Feedback is collected through a Microsoft Form.</p>
+      <p class="feedback-small">Feedback is collected through a Google Form.</p>
       <p class="feedback-hint" id="feedback-hint" hidden>Feedback form hasn't been connected yet.</p>
 
       <div class="feedback-flow-wrap">
@@ -235,11 +238,14 @@
 </main>
 
 <footer class="site-footer">
-  <img class="footer-logo" src="logo.png" alt="" width="36" height="36" onerror="this.style.display='none'">
+  <span class="footer-logo-frame">
+    <img src="logo.png" alt="" onerror="this.parentElement.style.display='none'">
+  </span>
   <p class="footer-title">Yi Xi — Manifesto 2026</p>
   <p class="footer-tag">Listen. Act. Show the results.</p>
   <p class="footer-note">Student Voice Note · Not Legal Tender</p>
   <p class="footer-disclaimer">Proposals are subject to discussion and approval by the relevant school staff, leadership and/or PTA.</p>
+  <a href="#" id="stuco-link" class="footer-link">Student Council website →</a>
 </footer>
 
 <script src="script.js"></script>
