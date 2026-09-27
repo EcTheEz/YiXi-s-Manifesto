@@ -20,6 +20,11 @@
 <header class="site-nav" id="site-nav">
   <div class="nav-inner">
     <a class="nav-mark" href="#home" aria-label="Yi Xi Manifesto, home">
+      <!-- LOGO: place a logo file named "logo.png" or "logo.svg" in this same
+           folder (next to index.html) and it will appear here automatically.
+           If no file is found, this just stays hidden and the text mark
+           to the right still works fine on its own. -->
+      <img class="nav-logo" src="logo.png" alt="" width="28" height="28" onerror="this.style.display='none'">
       <span class="nav-mark-serial">YX·26</span>
     </a>
     <button class="nav-toggle" id="nav-toggle" aria-expanded="false" aria-controls="nav-links">
@@ -50,6 +55,9 @@
       <div class="hero-corner hero-corner--br" aria-hidden="true"></div>
 
       <p class="hero-eyebrow" id="hero-eyebrow">Yi Xi · Manifesto 2026</p>
+
+      <!-- Same logo.png file as the nav — shown larger here. Stays hidden if missing. -->
+      <img class="hero-logo" src="logo.png" alt="" width="56" height="56" onerror="this.style.display='none'">
 
       <h1 class="hero-headline" id="hero-headline">
         Your voice<br>has value.
@@ -93,15 +101,15 @@
       <div class="sticky-row">
         <div class="sticky-note">
           <p class="sticky-label">Idea</p>
-          <p>"Can we have cleaner washrooms?"</p>
+          <p>"Can we have ______?"</p>
         </div>
         <div class="sticky-note">
           <p class="sticky-label">Question</p>
-          <p>"What happened to the equipment upgrades?"</p>
+          <p>"What happened to ______?"</p>
         </div>
         <div class="sticky-note">
           <p class="sticky-label">Suggestion</p>
-          <p>"Could we improve class tables?"</p>
+          <p>"Could we improve ______?"</p>
         </div>
       </div>
 
@@ -208,7 +216,7 @@
 
       <!-- Button target is set from FEEDBACK_URL at the top of script.js -->
       <a href="#" id="feedback-btn" class="btn btn-primary">Give your feedback →</a>
-      <p class="feedback-small">Feedback is collected through a Microsoft Forms.</p>
+      <p class="feedback-small">Feedback is collected through a Google Form.</p>
       <p class="feedback-hint" id="feedback-hint" hidden>Feedback form hasn't been connected yet.</p>
 
       <div class="feedback-flow-wrap">
@@ -227,6 +235,7 @@
 </main>
 
 <footer class="site-footer">
+  <img class="footer-logo" src="logo.png" alt="" width="36" height="36" onerror="this.style.display='none'">
   <p class="footer-title">Yi Xi — Manifesto 2026</p>
   <p class="footer-tag">Listen. Act. Show the results.</p>
   <p class="footer-note">Student Voice Note · Not Legal Tender</p>
