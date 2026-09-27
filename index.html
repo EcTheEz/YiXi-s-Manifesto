@@ -10,10 +10,10 @@
 <body>
 
 <!-- EDITABLE CAMPAIGN CONTENT STARTS HERE -->
-<!-- Most editable text lives directly in the sections below.
-     Your Google Form link (FEEDBACK_URL) and the progress tracker's
-     statuses/notes are set in script.js, under the "EDITABLE CAMPAIGN
-     SETTINGS" and "EDITABLE CONTENT" blocks near the top of that file. -->
+<!-- Almost everything you'll want to change — proposals, the headline,
+     How I Work, the timeline, and your Google Form link — lives in
+     script.js, clearly labelled near the top of that file. This HTML
+     file only holds structure and copy that rarely changes. -->
 
 <a class="skip-link" href="#main">Skip to main content</a>
 
@@ -31,6 +31,7 @@
     <nav id="nav-links" class="nav-links" aria-label="Primary">
       <a href="#home">Home</a>
       <a href="#proposals">Proposals</a>
+      <a href="#how-i-work">How I Work</a>
       <a href="#plan">Plan</a>
       <a href="#progress">Progress</a>
       <a href="#feedback">Feedback</a>
@@ -48,13 +49,13 @@
       <div class="hero-corner hero-corner--bl" aria-hidden="true"></div>
       <div class="hero-corner hero-corner--br" aria-hidden="true"></div>
 
-      <p class="hero-eyebrow">Yi Xi · Manifesto 2026</p>
+      <p class="hero-eyebrow" id="hero-eyebrow">Yi Xi · Manifesto 2026</p>
 
-      <h1 class="hero-headline">
+      <h1 class="hero-headline" id="hero-headline">
         Your voice<br>has value.
       </h1>
 
-      <p class="hero-sub">Listen. Act. Show the results.</p>
+      <p class="hero-sub" id="hero-sub">Listen. Act. Show the results.</p>
 
       <a href="#proposals" class="btn btn-primary hero-cta">
         Explore the manifesto <span class="arrow-down" aria-hidden="true">↓</span>
@@ -75,95 +76,8 @@
       <p class="section-intro">Three ideas worth pursuing, and how I would go about proposing them. None of this happens without discussion — each card is honest about what still needs approval, and what's already confirmed.</p>
     </div>
 
-    <!-- EDITABLE MANIFESTO CONTENT -->
-    <div class="card-stack">
-
-      <!-- Proposal 1 -->
-      <article class="card" data-card>
-        <button class="card-head" aria-expanded="false">
-          <span class="card-number">01</span>
-          <span class="card-titles">
-            <span class="card-kicker">Student Voice Board</span>
-            <span class="card-title">A visible feedback and response system</span>
-          </span>
-          <span class="card-chevron" aria-hidden="true"></span>
-        </button>
-        <div class="card-body">
-          <p class="card-label">The problem</p>
-          <p>Students need a clearer way to raise ideas, questions and concerns — and to know whether anything happened afterwards. A note left in a box that's never opened doesn't fix that.</p>
-
-          <p class="card-label">The proposal</p>
-          <p>A physical Student Voice Board, where students leave questions, suggestions, feedback and issues on sticky notes — ideas, questions, school issues, suggestions, or things students want improved. Council reviews submissions regularly and posts a response on the board itself, so the board shows both what was asked and what happened next.</p>
-
-          <p class="card-label">How it would work</p>
-          <ol class="mechanism">
-            <li>Leave a note</li>
-            <li>Review</li>
-            <li>Respond</li>
-            <li>Update the board</li>
-          </ol>
-
-          <p class="card-note">Requires school approval to set up and run.</p>
-        </div>
-      </article>
-
-      <!-- Proposal 2 -->
-      <article class="card" data-card>
-        <button class="card-head" aria-expanded="false">
-          <span class="card-number">02</span>
-          <span class="card-titles">
-            <span class="card-kicker">Presentation Club</span>
-            <span class="card-title">Rethinking Homework Club</span>
-          </span>
-          <span class="card-chevron" aria-hidden="true"></span>
-        </button>
-        <div class="card-body">
-          <p class="card-label">Where it stands now</p>
-          <p>Homework Club currently gives students a quiet place and time to complete homework while waiting for parents or siblings.</p>
-
-          <p class="card-label">What I'd propose instead</p>
-          <p>A redesigned version built around daily student-led learning sessions — a different presenter and topic each day, with presenters chosen through interviews.</p>
-          <ul class="detail-list">
-            <li>At least 30 minutes of presentation</li>
-            <li>A quiz afterwards</li>
-            <li>A task to demonstrate understanding</li>
-            <li>House points proposed as an incentive, subject to school approval</li>
-          </ul>
-
-          <p class="card-label">How it would work</p>
-          <ol class="mechanism">
-            <li>Present</li>
-            <li>Quiz</li>
-            <li>Task</li>
-            <li>Prove understanding</li>
-          </ol>
-
-          <p class="card-note">This is a proposal to redesign Homework Club, not a promise that it will replace it — subject to school approval.</p>
-        </div>
-      </article>
-
-      <!-- Proposal 3 -->
-      <article class="card" data-card>
-        <button class="card-head" aria-expanded="false">
-          <span class="card-number">03</span>
-          <span class="card-titles">
-            <span class="card-kicker">Canteen</span>
-            <span class="card-title">Nasi lemak — twice a week</span>
-          </span>
-          <span class="card-chevron" aria-hidden="true"></span>
-        </button>
-        <div class="card-body">
-          <p class="card-label">Where it stands</p>
-          <p>Twice-weekly availability has been confirmed with the canteen.</p>
-
-          <p class="card-label">What this means</p>
-          <p>This is a confirmed arrangement with the canteen for nasi lemak to be available twice a week — it is not a claim that a wider canteen proposal has been formally approved by school leadership.</p>
-
-          <p class="card-note card-note--confirmed">Canteen availability confirmed. This is the one item on this page that's already locked in, not just proposed.</p>
-        </div>
-      </article>
-
-    </div>
+    <!-- Cards are generated from the `proposals` array in script.js — edit there. -->
+    <div class="card-stack" id="proposal-cards"></div>
   </section>
 
   <!-- ============ STUDENT VOICE BOARD (EXAMPLE) ============ -->
@@ -223,10 +137,22 @@
     </div>
   </section>
 
+  <!-- ============ HOW I WORK ============ -->
+  <section class="section section--dark" id="how-i-work">
+    <div class="section-head">
+      <p class="section-eyebrow">Section Two</p>
+      <h2>How I work</h2>
+      <p class="section-intro" id="how-i-work-statement">I get things done — simply, quickly, and clearly.</p>
+    </div>
+
+    <!-- Points are generated from SITE_CONTENT.howIWork.points in script.js — edit there. -->
+    <div class="promise-grid" id="how-i-work-points"></div>
+  </section>
+
   <!-- ============ PLAN ============ -->
   <section class="section section--dark" id="plan">
     <div class="section-head">
-      <p class="section-eyebrow">Section Two</p>
+      <p class="section-eyebrow">Section Three</p>
       <h2>The 4-step promise</h2>
       <p class="section-intro">This is how every proposal above is meant to move — and why I can't promise the school will implement all of it. I can promise the process.</p>
     </div>
@@ -254,28 +180,21 @@
       </div>
     </div>
 
-    <div class="timeline" role="list" aria-label="Proposal timeline">
-      <div class="timeline-step" role="listitem">Idea</div>
-      <div class="timeline-step" role="listitem">Student feedback</div>
-      <div class="timeline-step" role="listitem">Proposal</div>
-      <div class="timeline-step" role="listitem">School / PTA discussion</div>
-      <div class="timeline-step" role="listitem">Decision</div>
-      <div class="timeline-step" role="listitem">Update students</div>
-    </div>
+    <!-- Steps are generated from SITE_CONTENT.timeline in script.js — edit there. -->
+    <div class="timeline" id="timeline" role="list" aria-label="Proposal timeline"></div>
     <p class="timeline-note">Transparency means reporting outcomes — not just the successes.</p>
   </section>
 
   <!-- ============ PROGRESS ============ -->
   <section class="section" id="progress">
     <div class="section-head">
-      <p class="section-eyebrow">Section Three</p>
+      <p class="section-eyebrow">Section Four</p>
       <h2>Manifesto progress</h2>
       <p class="section-intro">Nothing here is approved unless it's explicitly marked as such. Progress will be updated as proposals are discussed.</p>
     </div>
 
-    <ul class="progress-list" id="progress-list">
-      <!-- Populated by script.js from the EDITABLE CONTENT block -->
-    </ul>
+    <!-- Generated from the SAME `proposals` array as the cards above — edit in script.js. -->
+    <ul class="progress-list" id="progress-list"></ul>
 
     <p class="progress-footnote">Progress will be updated here as proposals are discussed.</p>
   </section>
@@ -283,7 +202,7 @@
   <!-- ============ FEEDBACK ============ -->
   <section class="section section--feedback" id="feedback">
     <div class="feedback-frame">
-      <p class="section-eyebrow">Section Four</p>
+      <p class="section-eyebrow">Section Five</p>
       <h2>Your voice matters.</h2>
       <p class="section-intro">Have an idea, question or something you think should change? Tell me. Your feedback can help shape what gets proposed.</p>
 
