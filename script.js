@@ -308,7 +308,7 @@ setUpCards();
   const hint = document.getElementById("feedback-hint");
   if (!button) return;
 
-  const isPlaceholder = !FEEDBACK_URL || FEEDBACK_URL === "PASTE-YOUR-GOOGLE-FORM-LINK-HERE";
+  const isPlaceholder = !FEEDBACK_URL || FEEDBACK_URL === "https://forms.cloud.microsoft/Pages/ResponsePage.aspx?id=1EHqx3BYj0-UfvGGxtWf0jTcBCBtgwVDsNsmy9lNGnxUOVlKTTYzSU5RM01YTkFJNVpORVZESEVONi4u";
 
   if (!isPlaceholder) {
     button.href = FEEDBACK_URL;
