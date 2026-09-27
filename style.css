@@ -163,7 +163,8 @@ h2 {
   max-width: 72rem;
   margin: 0 auto;
 }
-.nav-mark { text-decoration: none; }
+.nav-mark { text-decoration: none; display: flex; align-items: center; gap: 0.55rem; }
+.nav-logo { height: 28px; width: 28px; object-fit: contain; border-radius: 2px; display: block; }
 .nav-mark-serial {
   font-family: var(--font-mono);
   font-size: 0.85rem;
@@ -255,6 +256,7 @@ h2 {
   color: var(--brass);
   margin-bottom: 1.4rem;
 }
+.hero-logo { width: 56px; height: 56px; object-fit: contain; margin: 0 auto 1.4rem; border-radius: 3px; }
 .hero-headline {
   font-size: clamp(2.4rem, 10vw, 4rem);
   line-height: 1.04;
@@ -537,6 +539,7 @@ h2 {
   padding: 2.5rem var(--gutter) 3rem;
   border-top: 1px solid var(--line);
 }
+.footer-logo { width: 36px; height: 36px; object-fit: contain; margin: 0 auto 1rem; border-radius: 2px; }
 .footer-title { font-family: var(--font-display); font-size: 1.1rem; margin: 0 0 0.3rem; }
 .footer-tag { font-family: var(--font-mono); font-size: 0.75rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--brass); margin: 0 0 1rem; }
 .footer-note { font-family: var(--font-mono); font-size: 0.68rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-faint); margin: 0 0 1.2rem; }
