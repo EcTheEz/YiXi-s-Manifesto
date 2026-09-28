@@ -40,6 +40,13 @@ const proposals = [
   },
   {
     number: "03",
+    title: "STUCO WEBSITE",
+    status: "PROPOSED",
+    description: "A website for the student council comitee to recieve feedbacks, and for students to check on what we are working on.",
+    note: "A proposal to open a website for student council requires funds."
+  },
+   {
+    number: "04",
     title: "NASI LEMAK — TWICE A WEEK",
     status: "CONFIRMED",
     description: "Twice-weekly nasi lemak availability confirmed with the canteen.",
