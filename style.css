@@ -183,7 +183,7 @@ h2 {
   transform-origin: center;
 }
 .nav-logo-frame { width: 28px; height: 28px; border-radius: 2px; }
-.hero-logo-frame { width: 56px; height: 56px; border-radius: 3px; margin: 0 auto 1.4rem; }
+.hero-logo-frame { width: 120px; height: 120px; border-radius: 4px; margin: 0 auto 1.6rem; }
 .footer-logo-frame { width: 36px; height: 36px; border-radius: 2px; margin: 0 auto 1rem; }
 .nav-mark-serial {
   font-family: var(--font-mono);
@@ -306,6 +306,11 @@ h2 {
   text-transform: uppercase;
   color: var(--text-faint);
 }
+
+/* ---------- About ---------- */
+.about-body { max-width: 40rem; }
+.about-body p { color: var(--text-soft); font-size: 1.02rem; }
+.about-body .about-lead { color: var(--text); font-size: 1.25rem; line-height: 1.4; font-family: var(--font-display); }
 
 /* ---------- 7. Proposal cards ---------- */
 .card-stack {
@@ -499,17 +504,7 @@ h2 {
 .board-line { margin: 0 0 0.4rem; color: var(--text); }
 .board-note { margin: 0.6rem 0 0; font-size: 0.88rem; color: var(--text-soft); }
 
-/* ---------- 10. Progress list ---------- */
-.progress-list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 0.75rem; }
-.progress-item {
-  display: flex;
-  align-items: flex-start;
-  gap: 0.9rem;
-  border: 1px solid var(--line);
-  border-radius: 3px;
-  padding: 0.95rem 1rem;
-  background: var(--navy-panel);
-}
+/* ---------- 10. Status badges ---------- */
 .status-badge {
   font-family: var(--font-mono);
   font-size: 0.7rem;
@@ -521,10 +516,6 @@ h2 {
   white-space: nowrap;
   flex-shrink: 0;
 }
-.progress-text { display: flex; flex-direction: column; gap: 0.2rem; }
-.progress-title { font-weight: 600; color: var(--text); }
-.progress-note { font-size: 0.82rem; color: var(--text-soft); font-style: italic; }
-.progress-footnote { margin-top: 1.2rem; font-size: 0.88rem; color: var(--text-soft); font-style: italic; }
 
 .status-proposed { background: rgba(216,185,104,0.14); color: var(--brass-bright); border-color: rgba(216,185,104,0.4); }
 .status-discussion { background: rgba(224,140,66,0.14); color: #F0A868; border-color: rgba(224,140,66,0.4); }
@@ -605,7 +596,7 @@ a:focus-visible, button:focus-visible {
   .nav-links a { border-bottom: none; padding: 0.4rem 0; }
 
   .section, .hero { padding-left: 2.5rem; padding-right: 2.5rem; }
-  .section-head, .card-stack, .promise-grid, .progress-list, .timeline, .mechanism--center, .feedback-flow-wrap { max-width: 46rem; margin-left: auto; margin-right: auto; }
+  .section-head, .card-stack, .promise-grid, .about-body, .timeline, .mechanism--center, .feedback-flow-wrap { max-width: 46rem; margin-left: auto; margin-right: auto; }
   .promise-grid { grid-template-columns: repeat(4, 1fr); }
   .promise-grid--light { grid-template-columns: repeat(3, 1fr); }
   .hero-frame { padding: 3.5rem 3rem 2.5rem; }
@@ -614,5 +605,5 @@ a:focus-visible, button:focus-visible {
 }
 
 @media (min-width: 960px) {
-  .section-head, .card-stack, .promise-grid, .progress-list, .timeline, .mechanism--center, .feedback-flow-wrap { max-width: 54rem; }
+  .section-head, .card-stack, .promise-grid, .about-body, .timeline, .mechanism--center, .feedback-flow-wrap { max-width: 54rem; }
 }
