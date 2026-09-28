@@ -43,7 +43,7 @@ const proposals = [
     title: "STUCO WEBSITE",
     status: "PROPOSED",
     description: "A website for the student council comitee to recieve feedbacks, and for students to check on what we are working on.",
-    note: "A proposal to open a website for student council requires funds."
+    note: "A proposal to open a website for student council — posibly requires funds."
   },
    {
     number: "04",
