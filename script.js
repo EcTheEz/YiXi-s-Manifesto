@@ -5,7 +5,7 @@
    Layout of this file:
    1. EDIT YOUR PROPOSALS HERE   — the three manifesto proposals
    2. EDIT SITE CONTENT HERE     — headline, How I Work, timeline
-   3. EDITABLE CAMPAIGN SETTINGS — your Google Form link
+   3. EDITABLE CAMPAIGN SETTINGS — your feedback form link
    4. Everything below "SITE FUNCTIONALITY" renders and wires up the
       page from the content above. You shouldn't need to touch it.
    ========================================================================== */
@@ -14,8 +14,8 @@
    EDIT YOUR PROPOSALS HERE
    =================================
    Add, remove or reorder proposals by editing this array.
-   Changing "status" updates the proposal card AND the progress
-   tracker automatically — there's only one place to edit it.
+   Changing "status" updates the proposal card
+   automatically.
 
    status: one of "PROPOSED", "DISCUSSION", "CONFIRMED", "IMPLEMENTED", "NOT APPROVED"
    mechanism: optional — an array of short steps shown as a flow (e.g. ["Post","Review","Respond"])
@@ -42,10 +42,10 @@ const proposals = [
     number: "03",
     title: "STUCO WEBSITE",
     status: "PROPOSED",
-    description: "A website for the student council comitee to recieve feedbacks, and for students to check on what we are working on.",
-    note: "A proposal to open a website for student council — posibly requires funds."
+    description: "A website for the Student Council committee to receive feedback, and for students to check on what we are working on.",
+    note: "A proposal to open a website for Student Council — possibly requires funds."
   },
-   {
+  {
     number: "04",
     title: "NASI LEMAK — TWICE A WEEK",
     status: "CONFIRMED",
@@ -64,6 +64,17 @@ const SITE_CONTENT = {
   // Use <br> for a manual line break, as below.
   heroHeadlineHTML: "Your voice<br>has value.",
   heroSub: "Listen. Act. Show the results.",
+
+  about: {
+    heading: "About Yi Xi",
+    paragraphs: [
+      "Hi, I\u2019m Yi Xi, and I\u2019m running for Student Council President for 2026.",
+      "I want Student Council to be a place where students can raise ideas, questions and problems \u2014 and actually see what happens afterwards.",
+      "My focus is simple: listen, act and report back.",
+      "I want to turn student feedback into practical proposals, work with the relevant people to see what is possible, and keep students informed about the outcome \u2014 whether something is approved, still being discussed, or cannot be implemented.",
+      "Through this website, I\u2019ve put my ideas, plans and progress in one place so students can understand what I\u2019m proposing and give their own feedback."
+    ]
+  },
 
   howIWork: {
     statement: "I get things done — simply, quickly, and clearly.",
@@ -88,7 +99,7 @@ const SITE_CONTENT = {
 /* ================================
    EDITABLE CAMPAIGN SETTINGS
    ================================
-   Paste your Google Form URL below. Until you do, the feedback
+   Paste your Microsoft Forms link below. Until you do, the feedback
    button shows a friendly message instead of navigating anywhere.
 */
 const FEEDBACK_URL = "https://forms.cloud.microsoft/Pages/ResponsePage.aspx?id=1EHqx3BYj0-UfvGGxtWf0jTcBCBtgwVDsNsmy9lNGnxUOVlKTTYzSU5RM01YTkFJNVpORVZESEVONi4u";
@@ -179,44 +190,22 @@ function renderProposalCards() {
 renderProposalCards();
 
 /* ---------------------------------------------------------------------
-   Progress tracker — reads the SAME `proposals` array as the cards
+   About section — built from SITE_CONTENT.about
    --------------------------------------------------------------------- */
-function renderProgress() {
-  const list = document.getElementById("progress-list");
-  if (!list) return;
-  list.innerHTML = "";
+(function renderAbout() {
+  const headingEl = document.getElementById("about-heading");
+  const bodyEl = document.getElementById("about-body");
+  if (headingEl) headingEl.textContent = SITE_CONTENT.about.heading;
+  if (!bodyEl) return;
 
-  proposals.forEach((item) => {
-    const meta = getStatusMeta(item.status);
-
-    const li = document.createElement("li");
-    li.className = "progress-item";
-
-    const badge = document.createElement("span");
-    badge.className = "status-badge " + meta.class;
-    badge.textContent = meta.emoji + " " + meta.label.toUpperCase();
-
-    const textWrap = document.createElement("span");
-    textWrap.className = "progress-text";
-
-    const title = document.createElement("span");
-    title.className = "progress-title";
-    title.textContent = item.title;
-    textWrap.appendChild(title);
-
-    if (item.note) {
-      const note = document.createElement("span");
-      note.className = "progress-note";
-      note.textContent = item.note;
-      textWrap.appendChild(note);
-    }
-
-    li.appendChild(badge);
-    li.appendChild(textWrap);
-    list.appendChild(li);
+  bodyEl.innerHTML = "";
+  SITE_CONTENT.about.paragraphs.forEach((text, index) => {
+    const p = document.createElement("p");
+    if (index === 0) p.className = "about-lead";
+    p.textContent = text;
+    bodyEl.appendChild(p);
   });
-}
-renderProgress();
+})();
 
 /* ---------------------------------------------------------------------
    How I Work — built from SITE_CONTENT.howIWork
@@ -356,7 +345,7 @@ setUpCards();
    --------------------------------------------------------------------- */
 (function setUpReveal() {
   const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-  const targets = document.querySelectorAll(".section-head, [data-card], .progress-item, .promise-step");
+  const targets = document.querySelectorAll(".section-head, [data-card], .promise-step, .about-body");
 
   targets.forEach((el) => el.classList.add("reveal"));
 
