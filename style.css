@@ -648,3 +648,50 @@ a:focus-visible, button:focus-visible {
   letter-spacing: 0.2em;
   text-transform: uppercase;
 }
+
+/* Compact profile portrait and proposal browsing controls */
+.hero-avatar {
+  display: block;
+  width: 5.75rem;
+  height: 5.75rem;
+  margin: 0.9rem auto 1.15rem;
+  border: 2px solid var(--brass);
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(213,181,111,.2), rgba(213,181,111,.04));
+  object-fit: cover;
+  object-position: center 18%;
+  box-shadow: 0 0 0 5px rgba(213,181,111,.1), 0 8px 20px rgba(0,0,0,.22);
+}
+.proposal-filters {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: .55rem;
+  max-width: 54rem;
+  margin: 0 auto 1.5rem;
+}
+.proposal-filter {
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: .55rem .85rem;
+  color: var(--text);
+  background: transparent;
+  font: inherit;
+  font-size: .82rem;
+  cursor: pointer;
+  transition: background .2s ease, border-color .2s ease, color .2s ease;
+}
+.proposal-filter:hover, .proposal-filter.is-active {
+  border-color: var(--brass);
+  color: var(--brass);
+  background: rgba(213,181,111,.1);
+}
+.proposal-filter:focus-visible, .feedback-category-select:focus-visible { outline: 2px solid var(--brass); outline-offset: 3px; }
+.proposal-category-title { display: flex; align-items: center; justify-content: space-between; }
+.proposal-count { min-width: 1.65rem; padding: .12rem .45rem; border: 1px solid var(--line); border-radius: 999px; text-align: center; font-size: .72rem; }
+.proposal-status-group + .proposal-status-group { margin-top: 1.25rem; }
+.proposal-status-title { margin: 0 0 .65rem; color: var(--text-faint); font-family: var(--font-mono); font-size: .68rem; letter-spacing: .14em; text-transform: uppercase; }
+.proposal-category[hidden] { display: none; }
+.feedback-category-label { display: block; margin: 1.25rem auto .45rem; color: var(--text-faint); font-size: .88rem; }
+.feedback-category-select { display: block; width: min(100%, 20rem); margin: 0 auto 1rem; padding: .7rem .85rem; border: 1px solid var(--line); border-radius: .35rem; color: var(--text); background: var(--surface, #171a20); font: inherit; }
+@media (max-width: 480px) { .proposal-filters { justify-content: flex-start; } }
