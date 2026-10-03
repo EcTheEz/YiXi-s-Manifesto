@@ -698,3 +698,4 @@ a:focus-visible, button:focus-visible {
 
 .hero-avatar-frame { position: relative; display: block; width: 5.75rem; height: 5.75rem; overflow: hidden; margin: .9rem auto 1.15rem; border: 2px solid var(--brass); border-radius: 50%; background: radial-gradient(circle, rgba(213,181,111,.2), rgba(213,181,111,.04)); box-shadow: 0 0 0 5px rgba(213,181,111,.1), 0 8px 20px rgba(0,0,0,.22); }
 .hero-avatar-frame .hero-avatar { position: absolute; top: -5.6rem; left: -65%; display: block; width: 230%; max-width: none; height: auto; margin: 0; border: 0; border-radius: 0; background: none; object-fit: initial; box-shadow: none; }
+.hero-avatar-frame .hero-avatar { top: -10.5rem; }
