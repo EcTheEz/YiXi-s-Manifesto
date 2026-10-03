@@ -579,7 +579,7 @@ a:focus-visible, button:focus-visible {
   .reveal { opacity: 1; transform: none; }
 }
 
-/* ---------- 14. Responsive (desktop) ---------- */
+/* Proposal category sections */ .proposal-category { margin: 0 0 2rem; } .proposal-category:last-child { margin-bottom: 0; } .proposal-category-title { font-family: var(--font-mono); font-size: 0.82rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--brass); padding-bottom: 0.55rem; margin: 0 0 0.85rem; border-bottom: 1px solid var(--line); } .proposal-category-cards { display: flex; flex-direction: column; gap: 1rem; } .proposal-category-empty { color: var(--text-faint); font-style: italic; margin: 0; padding: 0.25rem 0; } /* ---------- 14. Responsive (desktop) ---------- */
 @media (min-width: 720px) {
   .nav-toggle { display: none; }
   .nav-links {
