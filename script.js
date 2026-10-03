@@ -190,7 +190,7 @@ function renderProposalCards() {
 
     const heading = document.createElement("h3");
     heading.className = "proposal-category-title";
-    heading.innerHTML = "<span>" + category + "</span><span class="proposal-count">" + items.length + "</span>";
+    heading.innerHTML = "<span>" + category + "</span><span class='proposal-count'>" + items.length + "</span>";
     group.appendChild(heading);
     if (filters) {
       const button = document.createElement("button");
