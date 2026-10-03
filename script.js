@@ -211,7 +211,7 @@ function renderProposalCards() {
     cards.appendChild(article);
   });
 }
-}); } renderProposalCards();
+); } renderProposalCards();
 
 /* ---------------------------------------------------------------------
    About section — built from SITE_CONTENT.about
