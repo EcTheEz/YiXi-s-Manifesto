@@ -19,12 +19,12 @@
 
    status: one of "PROPOSED", "DISCUSSION", "CONFIRMED", "IMPLEMENTED", "NOT APPROVED"
    mechanism: optional — an array of short steps shown as a flow (e.g. ["Post","Review","Respond"])
-   note: optional — a short italic line shown under the description
+   note: optional — a short italic line shown under the description; category: one of "Idea", "Question", "Problem", "Suggestion", "Other"
 */
 const proposals = [
   {
     number: "01",
-    title: "STUDENT VOICE BOARD",
+    title: "STUDENT VOICE BOARD", category: "Idea",
     status: "PROPOSED",
     description: "A physical board where students leave ideas, questions, school issues and suggestions on sticky notes. Council reviews submissions regularly and posts a response on the board itself, so it shows both what was asked and what happened next.",
     mechanism: ["Leave a note", "Review", "Respond", "Update the board"],
@@ -32,7 +32,7 @@ const proposals = [
   },
   {
     number: "02",
-    title: "PRESENTATION CLUB",
+    title: "PRESENTATION CLUB", category: "Idea",
     status: "PROPOSED",
     description: "A redesigned alternative to Homework Club, built around daily student-led presentations — a different presenter and topic each day, chosen through interviews, followed by a quiz and a task to demonstrate understanding.",
     mechanism: ["Present", "Quiz", "Task", "Prove understanding"],
@@ -40,21 +40,21 @@ const proposals = [
   },
   {
     number: "03",
-    title: "STUCO WEBSITE",
+    title: "STUCO WEBSITE", category: "Idea",
     status: "PROPOSED",
     description: "A website for the Student Council committee to receive feedback, and for students to check on what we are working on.",
     note: "A proposal to open a website for Student Council — possibly requires funds."
   },
   {
     number: "04",
-    title: "NASI LEMAK — TWICE A WEEK",
+    title: "NASI LEMAK — TWICE A WEEK", category: "Suggestion",
     status: "CONFIRMED",
     description: "Twice-weekly nasi lemak availability confirmed with the canteen.",
     note: "This is a confirmed arrangement for nasi lemak availability — not a claim that a wider canteen proposal has been formally approved by school leadership."
   },
    {
   number: "05",
-  title: "FOOTBALL FIELD IMPROVEMENT",
+  title: "FOOTBALL FIELD IMPROVEMENT", category: "Problem",
   status: "PROPOSED",
   description: "An improvement to the football field to address uneven areas, slippery sections and places where water collects after rain. One possible approach is to redistribute suitable soil from higher areas into lower areas to help level the surface, subject to advice from the relevant maintenance staff.",
   mechanism: ["Observe after rain", "Identify problem areas", "Discuss with maintenance", "Improve the surface"],
@@ -62,7 +62,7 @@ const proposals = [
 },
 {
   number: "06",
-  title: "MORNING WEATHER UPDATE",
+  title: "MORNING WEATHER UPDATE", category: "Suggestion",
   status: "PROPOSED",
   description: "A short weather and air quality update during the morning intercom announcement, informing students about the day's expected weather, especially rain, and the current air quality. This would help students know whether outdoor areas such as the field are likely to be usable during break and lunch, particularly when air quality is above the level where outdoor sports should not take place.",
   mechanism: ["Check weather", "Check air quality", "Announce in the morning", "Inform outdoor activities"],
@@ -70,7 +70,7 @@ const proposals = [
 },
 {
   number: "07",
-  title: "STUCO PODCAST / VODCAST",
+  title: "STUCO PODCAST / VODCAST", category: "Idea",
   status: "PROPOSED",
   description: "A Student Council podcast or vodcast developed in collaboration with Mr Robert, providing a platform to discuss school life, student ideas, upcoming initiatives and relevant topics in a more engaging format.",
   mechanism: ["Plan episodes", "Discuss topics", "Record", "Publish"],
@@ -170,12 +170,12 @@ function renderProposalCards() {
   if (!container) return;
   container.innerHTML = "";
 
-  proposals.forEach((item) => {
+  ["Idea", "Question", "Problem", "Suggestion", "Other"].forEach((category) => { const group = document.createElement("section"); group.className = "proposal-category"; group.setAttribute("aria-label", category + " proposals"); const heading = document.createElement("h3"); heading.className = "proposal-category-title"; heading.textContent = category; group.appendChild(heading); const cards = document.createElement("div"); cards.className = "proposal-category-cards"; group.appendChild(cards); container.appendChild(group); const items = proposals.filter((item) => (item.category || "Other") === category); const isResolved = (item) => ["CONFIRMED", "IMPLEMENTED", "NOT APPROVED"].includes(item.status); items.sort((a, b) => Number(isResolved(a)) - Number(isResolved(b)) || Number(a.number) - Number(b.number)); if (!items.length) { const empty = document.createElement("p"); empty.className = "proposal-category-empty"; empty.textContent = "No proposals in this section yet."; cards.appendChild(empty); } items.forEach((item) => {
     const meta = getStatusMeta(item.status);
 
     const article = document.createElement("article");
     article.className = "card";
-    article.setAttribute("data-card", "");
+    article.setAttribute("data-card", ""); article.setAttribute("data-category", item.category || "Other");
 
     const head = document.createElement("button");
     head.className = "card-head";
@@ -208,10 +208,10 @@ function renderProposalCards() {
 
     article.appendChild(head);
     article.appendChild(body);
-    container.appendChild(article);
+    cards.appendChild(article);
   });
 }
-renderProposalCards();
+}); renderProposalCards();
 
 /* ---------------------------------------------------------------------
    About section — built from SITE_CONTENT.about
