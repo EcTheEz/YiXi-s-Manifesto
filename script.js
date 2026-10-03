@@ -51,7 +51,31 @@ const proposals = [
     status: "CONFIRMED",
     description: "Twice-weekly nasi lemak availability confirmed with the canteen.",
     note: "This is a confirmed arrangement for nasi lemak availability — not a claim that a wider canteen proposal has been formally approved by school leadership."
-  }
+  },
+   {
+  number: "05",
+  title: "FOOTBALL FIELD IMPROVEMENT",
+  status: "PROPOSED",
+  description: "An improvement to the football field to address uneven areas, slippery sections and places where water collects after rain. One possible approach is to redistribute suitable soil from higher areas into lower areas to help level the surface, subject to advice from the relevant maintenance staff.",
+  mechanism: ["Observe after rain", "Identify problem areas", "Discuss with maintenance", "Improve the surface"],
+  note: "This proposal was brought forward by Raaghav, who should receive credit for identifying the issue and suggesting the improvement."
+},
+{
+  number: "06",
+  title: "MORNING WEATHER UPDATE",
+  status: "PROPOSED",
+  description: "A short weather and air quality update during the morning intercom announcement, informing students about the day's expected weather, especially rain, and the current air quality. This would help students know whether outdoor areas such as the field are likely to be usable during break and lunch, particularly when air quality is above the level where outdoor sports should not take place.",
+  mechanism: ["Check weather", "Check air quality", "Announce in the morning", "Inform outdoor activities"],
+  note: "Requires school approval and coordination with the relevant staff for the morning announcement."
+},
+{
+  number: "07",
+  title: "STUCO PODCAST / VODCAST",
+  status: "PROPOSED",
+  description: "A Student Council podcast or vodcast developed in collaboration with Mr Robert, providing a platform to discuss school life, student ideas, upcoming initiatives and relevant topics in a more engaging format.",
+  mechanism: ["Plan episodes", "Discuss topics", "Record", "Publish"],
+  note: "A proposed collaboration with Mr Robert, with the format, topics and publication process to be developed together."
+}
 ];
 
 /* =================================
