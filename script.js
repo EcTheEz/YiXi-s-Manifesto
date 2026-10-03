@@ -167,51 +167,100 @@ function getStatusMeta(status) {
    --------------------------------------------------------------------- */
 function renderProposalCards() {
   const container = document.getElementById("proposal-cards");
+  const filters = document.getElementById("proposal-filters");
   if (!container) return;
   container.innerHTML = "";
+  if (filters) filters.innerHTML = "";
 
-  ["Idea", "Question", "Problem", "Suggestion", "Other"].forEach((category) => { const group = document.createElement("section"); group.className = "proposal-category"; group.setAttribute("aria-label", category + " proposals"); const heading = document.createElement("h3"); heading.className = "proposal-category-title"; heading.textContent = category; group.appendChild(heading); const cards = document.createElement("div"); cards.className = "proposal-category-cards"; group.appendChild(cards); container.appendChild(group); const items = proposals.filter((item) => (item.category || "Other") === category); const isResolved = (item) => ["CONFIRMED", "IMPLEMENTED", "NOT APPROVED"].includes(item.status); items.sort((a, b) => Number(isResolved(a)) - Number(isResolved(b)) || Number(a.number) - Number(b.number)); if (!items.length) { const empty = document.createElement("p"); empty.className = "proposal-category-empty"; empty.textContent = "No proposals in this section yet."; cards.appendChild(empty); } items.forEach((item) => {
-    const meta = getStatusMeta(item.status);
+  const categories = ["Idea", "Question", "Problem", "Suggestion", "Other"];
+  const isResolved = (item) => ["CONFIRMED", "IMPLEMENTED", "NOT APPROVED"].includes(item.status);
+  const filterButtons = [];
+  const all = document.createElement("button");
+  all.type = "button"; all.className = "proposal-filter is-active"; all.textContent = "All (" + proposals.length + ")";
+  all.setAttribute("aria-pressed", "true");
+  if (filters) { filters.appendChild(all); }
 
-    const article = document.createElement("article");
-    article.className = "card";
-    article.setAttribute("data-card", ""); article.setAttribute("data-category", item.category || "Other");
+  categories.forEach((category) => {
+    const items = proposals.filter((item) => (item.category || "Other") === category);
+    items.sort((a, b) => Number(isResolved(a)) - Number(isResolved(b)) || Number(a.number) - Number(b.number));
+    const group = document.createElement("section");
+    group.className = "proposal-category";
+    group.dataset.category = category;
+    group.setAttribute("aria-label", category + " proposals");
 
-    const head = document.createElement("button");
-    head.className = "card-head";
-    head.setAttribute("aria-expanded", "false");
-    head.innerHTML =
-      '<span class="card-number">' + item.number + "</span>" +
-      '<span class="card-titles"><span class="card-title">' + item.title + "</span></span>" +
-      '<span class="status-badge ' + meta.class + '">' + meta.emoji + " " + meta.label.toUpperCase() + "</span>" +
-      '<span class="card-chevron" aria-hidden="true"></span>';
-
-    const body = document.createElement("div");
-    body.className = "card-body";
-
-    let bodyHTML = "<p>" + item.description + "</p>";
-
-    if (item.mechanism && item.mechanism.length) {
-      bodyHTML += '<p class="card-label">How it would work</p><ol class="mechanism">' +
-        item.mechanism.map((step) => "<li>" + step + "</li>").join("") +
-        "</ol>";
+    const heading = document.createElement("h3");
+    heading.className = "proposal-category-title";
+    heading.innerHTML = "<span>" + category + "</span><span class="proposal-count">" + items.length + "</span>";
+    group.appendChild(heading);
+    if (filters) {
+      const button = document.createElement("button");
+      button.type = "button"; button.className = "proposal-filter";
+      button.textContent = category + " (" + items.length + ")";
+      button.setAttribute("aria-pressed", "false");
+      filters.appendChild(button); filterButtons.push([category, button]);
     }
 
-    if (item.note) {
-      const noteClass = item.status === "CONFIRMED" || item.status === "IMPLEMENTED"
-        ? "card-note card-note--confirmed"
-        : "card-note";
-      bodyHTML += '<p class="' + noteClass + '">' + item.note + "</p>";
+    const openItems = items.filter((item) => !isResolved(item));
+    const resolvedItems = items.filter(isResolved);
+    [["In progress", openItems], ["Resolved", resolvedItems]].forEach(([label, subset]) => {
+      if (!subset.length) return;
+      const statusGroup = document.createElement("div");
+      statusGroup.className = "proposal-status-group";
+      const statusHeading = document.createElement("h4");
+      statusHeading.className = "proposal-status-title";
+      statusHeading.textContent = label + " · " + subset.length;
+      statusGroup.appendChild(statusHeading);
+      const cards = document.createElement("div");
+      cards.className = "proposal-category-cards";
+      subset.forEach((item) => {
+        const meta = getStatusMeta(item.status);
+        const article = document.createElement("article");
+        article.className = "card";
+        article.setAttribute("data-card", "");
+        article.setAttribute("data-category", item.category || "Other");
+        const head = document.createElement("button");
+        head.className = "card-head"; head.setAttribute("aria-expanded", "false");
+        head.innerHTML = '<span class="card-number">' + item.number + "</span>" +
+          '<span class="card-titles"><span class="card-title">' + item.title + "</span></span>" +
+          '<span class="status-badge ' + meta.class + '">' + meta.emoji + " " + meta.label.toUpperCase() + "</span>" +
+          '<span class="card-chevron" aria-hidden="true"></span>';
+        const body = document.createElement("div"); body.className = "card-body";
+        let bodyHTML = "<p>" + item.description + "</p>";
+        if (item.mechanism && item.mechanism.length) bodyHTML += '<p class="card-label">How it would work</p><ol class="mechanism">' + item.mechanism.map((step) => "<li>" + step + "</li>").join("") + "</ol>";
+        if (item.note) {
+          const noteClass = item.status === "CONFIRMED" || item.status === "IMPLEMENTED" ? "card-note card-note--confirmed" : "card-note";
+          bodyHTML += '<p class="' + noteClass + '">' + item.note + "</p>";
+        }
+        body.innerHTML = bodyHTML;
+        article.appendChild(head); article.appendChild(body); cards.appendChild(article);
+      });
+      statusGroup.appendChild(cards); group.appendChild(statusGroup);
+    });
+    if (!items.length) {
+      const empty = document.createElement("p");
+      empty.className = "proposal-category-empty";
+      empty.textContent = "No proposals in this section yet.";
+      group.appendChild(empty);
     }
-
-    body.innerHTML = bodyHTML;
-
-    article.appendChild(head);
-    article.appendChild(body);
-    cards.appendChild(article);
+    container.appendChild(group);
   });
+
+  function setCategoryFilter(category) {
+    container.querySelectorAll(".proposal-category").forEach((group) => {
+      group.hidden = category !== "All" && group.dataset.category !== category;
+    });
+    all.classList.toggle("is-active", category === "All");
+    all.setAttribute("aria-pressed", String(category === "All"));
+    filterButtons.forEach(([name, button]) => {
+      button.classList.toggle("is-active", name === category);
+      button.setAttribute("aria-pressed", String(name === category));
+    });
+  }
+  all.addEventListener("click", () => setCategoryFilter("All"));
+  filterButtons.forEach(([category, button]) => button.addEventListener("click", () => setCategoryFilter(category)));
+  renderProposalCards.setCategoryFilter = setCategoryFilter;
 }
-); } renderProposalCards();
+renderProposalCards();
 
 /* ---------------------------------------------------------------------
    About section — built from SITE_CONTENT.about
@@ -330,6 +379,14 @@ setUpCards();
 (function setUpFeedback() {
   const button = document.getElementById("feedback-btn");
   const hint = document.getElementById("feedback-hint");
+  const categorySelect = document.getElementById("feedback-category");
+  if (categorySelect && hint) {
+    categorySelect.addEventListener("change", () => {
+      if (!categorySelect.value) { hint.hidden = true; return; }
+      hint.textContent = "Suggested category: " + categorySelect.value + ". Please mention it in your form response; Student Council will make the final classification.";
+      hint.hidden = false;
+    });
+  }
   if (!button) return;
 
   const isPlaceholder = !FEEDBACK_URL || FEEDBACK_URL.indexOf("PASTE-YOUR") === 0;
