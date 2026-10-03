@@ -695,3 +695,6 @@ a:focus-visible, button:focus-visible {
 .feedback-category-label { display: block; margin: 1.25rem auto .45rem; color: var(--text-faint); font-size: .88rem; }
 .feedback-category-select { display: block; width: min(100%, 20rem); margin: 0 auto 1rem; padding: .7rem .85rem; border: 1px solid var(--line); border-radius: .35rem; color: var(--text); background: var(--surface, #171a20); font: inherit; }
 @media (max-width: 480px) { .proposal-filters { justify-content: flex-start; } }
+
+.hero-avatar-frame { position: relative; display: block; width: 5.75rem; height: 5.75rem; overflow: hidden; margin: .9rem auto 1.15rem; border: 2px solid var(--brass); border-radius: 50%; background: radial-gradient(circle, rgba(213,181,111,.2), rgba(213,181,111,.04)); box-shadow: 0 0 0 5px rgba(213,181,111,.1), 0 8px 20px rgba(0,0,0,.22); }
+.hero-avatar-frame .hero-avatar { position: absolute; top: -5.6rem; left: -65%; display: block; width: 230%; max-width: none; height: auto; margin: 0; border: 0; border-radius: 0; background: none; object-fit: initial; box-shadow: none; }
