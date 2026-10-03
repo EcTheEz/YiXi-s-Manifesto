@@ -60,7 +60,7 @@
       <!-- Same logo.png file as the nav — shown larger here. Stays hidden if missing. -->
       <span class="hero-logo-frame">
         <img src="logo.png" alt="" onerror="this.parentElement.style.display='none'">
-      </span><figure class="hero-portrait"><img src="image-removebg-preview%20(1).png" alt="A playful portrait of Yi Xi wearing a teddy bear on their head"><figcaption>Yi Xi · 2026</figcaption></figure>
+      </span><img class="hero-avatar" src="image-removebg-preview%20(1).png" alt="Yi Xi’s profile portrait">
       <h1 class="hero-headline" id="hero-headline">
         Your voice<br>has value.
       </h1>
@@ -93,9 +93,10 @@
     <div class="section-head">
       <p class="section-eyebrow">Section Two</p>
       <h2>The proposals</h2>
-      <p class="section-intro">Browse proposals by type: Idea, Question, Problem, Suggestion, or Other. Proposals still in progress appear before resolved proposals within each section.</p>
+      <p class="section-intro">Use the category buttons to filter. Items in progress appear first; confirmed, implemented, or declined items are grouped as resolved. Category suggestions are welcome, and Student Council makes the final classification.</p>
     </div>
 
+    <div class="proposal-filters" id="proposal-filters" role="group" aria-label="Filter proposals by category"></div>
     <!-- Cards are generated from the `proposals` array in script.js — edit there. -->
     <div class="card-stack" id="proposal-cards"></div>
   </section>
@@ -211,6 +212,11 @@
       <h2>Your voice matters.</h2>
       <p class="section-intro">Have an idea, question or something you think should change? Tell me. Your feedback can help shape what gets proposed.</p>
 
+      <label class="feedback-category-label" for="feedback-category">What kind of feedback are you sharing?</label>
+      <select id="feedback-category" class="feedback-category-select">
+        <option value="">Choose a category (optional)</option>
+        <option>Idea</option><option>Question</option><option>Problem</option><option>Suggestion</option><option>Other</option>
+      </select>
       <!-- Button target is set from FEEDBACK_URL at the top of script.js -->
       <a href="#" id="feedback-btn" class="btn btn-primary">Give your feedback →</a>
       <p class="feedback-small">Feedback is collected through a Microsoft Form.</p>
