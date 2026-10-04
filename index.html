@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Yi Xi — Manifesto 2026 | Your Voice Has Value</title>
-<meta name="description" content="Yi Xi's Student Council President manifesto for 2026. Proposals on the Student Voice Board, Presentation Club, a Student Council website, and nasi lemak availability."><link rel="stylesheet" href="style.css?v=form-embed-v2">
+<meta name="description" content="Yi Xi's Student Council President manifesto for 2026. Proposals on the Student Voice Board, Presentation Club, a Student Council website, and nasi lemak availability."><link rel="stylesheet" href="style.css?v=suggestions-v1">
 </head>
 <body>
 
@@ -96,7 +96,12 @@
       <p class="section-intro">Use the category buttons to filter. Items in progress appear first; confirmed, implemented, or declined items are grouped as resolved. Category suggestions are welcome, and Student Council makes the final classification.</p>
     </div>
 
+    <p class="proposal-updated">Proposal details last updated 4 October 2026. Contacts and follow-up dates are shown as unconfirmed until arranged.</p>
+    <label class="proposal-search-label" for="proposal-search">Search proposals
+      <input id="proposal-search" type="search" placeholder="Search titles, details or next steps…" autocomplete="off">
+    </label>
     <div class="proposal-filters" id="proposal-filters" role="group" aria-label="Filter proposals by category"></div>
+    <p id="proposal-no-results" class="proposal-no-results" role="status" hidden>No proposals match your search.</p>
     <!-- Cards are generated from the `proposals` array in script.js — edit there. -->
     <div class="card-stack" id="proposal-cards"></div>
   </section>
@@ -245,6 +250,6 @@
   <a href="#" id="stuco-link" class="footer-link">Student Council website →</a>
 </footer>
 
-<script src="script.js?v=form-embed-v2"></script>
+<script src="script.js?v=suggestions-v1"></script>
 </body>
 </html>
