@@ -77,6 +77,16 @@ const proposals = [
   note: "A proposed collaboration with Mr Robert, with the format, topics and publication process to be developed together."
 }
 ];
+const PROPOSAL_UPDATES = {
+  "01": { current: "Proposed; a school discussion date is not recorded yet.", contact: "Relevant school staff — contact not confirmed.", next: "Ask staff to review the board setup and response process.", nextUpdate: "After a discussion date is arranged." },
+  "02": { current: "Proposed; a school discussion date is not recorded yet.", contact: "Relevant club or school staff — contact not confirmed.", next: "Discuss the format and feasibility with the staff responsible for Homework Club.", nextUpdate: "After a discussion date is arranged." },
+  "03": { current: "Proposed; feasibility and funding are not confirmed.", contact: "Student Council / school staff — contact not confirmed.", next: "Check approval, hosting and funding requirements.", nextUpdate: "After the feasibility check." },
+  "04": { current: "Confirmed arrangement; a later review date is not recorded.", contact: "Canteen liaison — contact not recorded.", next: "Check that the twice-weekly availability continues as agreed.", nextUpdate: "At the next canteen check-in; date not confirmed." },
+  "05": { current: "Proposed; a maintenance review date is not recorded yet.", contact: "Relevant maintenance staff — contact not confirmed.", next: "Ask maintenance staff to assess the field conditions and safe options.", nextUpdate: "After a maintenance review is arranged." },
+  "06": { current: "Proposed; a school discussion date is not recorded yet.", contact: "Staff responsible for announcements — contact not confirmed.", next: "Check the announcement process and a reliable weather / air-quality source.", nextUpdate: "After a discussion date is arranged." },
+  "07": { current: "Proposed collaboration; format and approval are not confirmed.", contact: "Mr Robert / Student Council — discussion date not recorded.", next: "Discuss a suitable format, topics and approval process.", nextUpdate: "After a discussion date is arranged." }
+};
+
 
 /* =================================
    EDIT SITE CONTENT HERE
@@ -168,6 +178,8 @@ function getStatusMeta(status) {
 function renderProposalCards() {
   const container = document.getElementById("proposal-cards");
   const filters = document.getElementById("proposal-filters");
+  const searchInput = document.getElementById("proposal-search");
+  const noResults = document.getElementById("proposal-no-results");
   if (!container) return;
   container.innerHTML = "";
   if (filters) filters.innerHTML = "";
@@ -231,6 +243,16 @@ function renderProposalCards() {
           const noteClass = item.status === "CONFIRMED" || item.status === "IMPLEMENTED" ? "card-note card-note--confirmed" : "card-note";
           bodyHTML += '<p class="' + noteClass + '">' + item.note + "</p>";
         }
+        const update = PROPOSAL_UPDATES[item.number];
+        if (update) {
+          bodyHTML += '<section class="card-progress-update" aria-label="Progress update">' +
+            '<p class="card-label">Progress update</p><dl>' +
+            '<div><dt>Current</dt><dd>' + update.current + '</dd></div>' +
+            '<div><dt>With</dt><dd>' + update.contact + '</dd></div>' +
+            '<div><dt>Next step</dt><dd>' + update.next + '</dd></div>' +
+            '<div><dt>Next update</dt><dd>' + update.nextUpdate + '</dd></div>' +
+            '</dl></section>';
+        }
         body.innerHTML = bodyHTML;
         article.appendChild(head); article.appendChild(body); cards.appendChild(article);
       });
@@ -245,19 +267,35 @@ function renderProposalCards() {
     container.appendChild(group);
   });
 
-  function setCategoryFilter(category) {
+  let activeCategory = "All";
+  function applyProposalFilters() {
+    const query = searchInput ? searchInput.value.trim().toLocaleLowerCase() : "";
+    let matches = 0;
     container.querySelectorAll(".proposal-category").forEach((group) => {
-      group.hidden = category !== "All" && group.dataset.category !== category;
+      const categoryMatches = activeCategory === "All" || group.dataset.category === activeCategory;
+      let groupMatches = 0;
+      group.querySelectorAll("[data-card]").forEach((card) => {
+        const textMatches = !query || card.textContent.toLocaleLowerCase().includes(query);
+        card.hidden = !textMatches;
+        if (categoryMatches && textMatches) { groupMatches += 1; matches += 1; }
+      });
+      group.hidden = !categoryMatches || (Boolean(query) && groupMatches === 0);
     });
+    if (noResults) noResults.hidden = matches > 0 || !query;
+  }
+  function setCategoryFilter(category) {
+    activeCategory = category;
     all.classList.toggle("is-active", category === "All");
     all.setAttribute("aria-pressed", String(category === "All"));
     filterButtons.forEach(([name, button]) => {
       button.classList.toggle("is-active", name === category);
       button.setAttribute("aria-pressed", String(name === category));
     });
+    applyProposalFilters();
   }
   all.addEventListener("click", () => setCategoryFilter("All"));
   filterButtons.forEach(([category, button]) => button.addEventListener("click", () => setCategoryFilter(category)));
+  if (searchInput) searchInput.addEventListener("input", applyProposalFilters);
   renderProposalCards.setCategoryFilter = setCategoryFilter;
 }
 renderProposalCards();
