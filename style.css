@@ -701,3 +701,16 @@ a:focus-visible, button:focus-visible {
 .feedback-embed { display: block; width: 100%; height: 1100px; border: 0; background: #fff; }
 .feedback-fallback { margin-top: .25rem; }
 @media (max-width: 600px) { .feedback-embed { height: 1300px; } }
+.proposal-updated { max-width: 54rem; margin: .25rem auto 1rem; color: var(--text-faint); font-size: .78rem; text-align: center; }
+.proposal-search-label { display: flex; flex-direction: column; gap: .4rem; max-width: 34rem; margin: 0 auto 1rem; color: var(--text-faint); font-size: .82rem; }
+.proposal-search-label input { width: 100%; padding: .75rem .9rem; border: 1px solid var(--line); border-radius: .35rem; color: var(--text); background: rgba(255,255,255,.06); font: inherit; }
+.proposal-search-label input::placeholder { color: var(--text-faint); }
+.proposal-search-label input:focus-visible { outline: 2px solid var(--brass); outline-offset: 2px; }
+.proposal-no-results { margin: 1rem auto; color: var(--text-faint); font-style: italic; text-align: center; }
+.card-progress-update { margin-top: 1.2rem; padding: .9rem 1rem; border-left: 2px solid var(--brass); background: rgba(213,181,111,.06); }
+.card-progress-update .card-label { margin-top: 0; }
+.card-progress-update dl { display: grid; gap: .7rem; margin: 0; }
+.card-progress-update dl > div { display: grid; grid-template-columns: minmax(6.5rem, .32fr) 1fr; gap: .6rem; }
+.card-progress-update dt { color: var(--brass); font-size: .75rem; font-weight: 700; }
+.card-progress-update dd { margin: 0; color: var(--text); font-size: .85rem; line-height: 1.55; }
+@media (max-width: 480px) { .card-progress-update dl > div { grid-template-columns: 1fr; gap: .15rem; } }
