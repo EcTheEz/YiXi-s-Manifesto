@@ -379,14 +379,6 @@ setUpCards();
 (function setUpFeedback() {
   const button = document.getElementById("feedback-btn");
   const hint = document.getElementById("feedback-hint");
-  const categorySelect = document.getElementById("feedback-category");
-  if (categorySelect && hint) {
-    categorySelect.addEventListener("change", () => {
-      if (!categorySelect.value) { hint.hidden = true; return; }
-      hint.textContent = "Suggested category: " + categorySelect.value + ". Please mention it in your form response; Student Council will make the final classification.";
-      hint.hidden = false;
-    });
-  }
   if (!button) return;
 
   const isPlaceholder = !FEEDBACK_URL || FEEDBACK_URL.indexOf("PASTE-YOUR") === 0;
