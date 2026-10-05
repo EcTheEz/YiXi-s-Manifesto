@@ -17,9 +17,9 @@
    Changing "status" updates the proposal card
    automatically.
 
-   status: one of "PROPOSED", "DISCUSSION", "CONFIRMED", "IMPLEMENTED", "NOT APPROVED"
+   status: one of "PROPOSED", "DISCUSSION", "DELAYED", "CONFIRMED", "IMPLEMENTED", "NOT APPROVED"
    mechanism: optional — an array of short steps shown as a flow (e.g. ["Post","Review","Respond"])
-   note: optional — a short italic line shown under the description; category: one of "Idea", "Question", "Problem", "Suggestion", "Other"
+   note: optional — a short italic line shown under the description; category: one of "Idea", "Question", "Problem", "Suggestion", "Future", "Other"
 */
 const proposals = [
   {
@@ -54,9 +54,9 @@ const proposals = [
   },
    {
   number: "05",
-  title: "FOOTBALL FIELD IMPROVEMENT", category: "Problem",
-  status: "PROPOSED",
-  description: "An improvement to the football field to address uneven areas, slippery sections and places where water collects after rain. One possible approach is to redistribute suitable soil from higher areas into lower areas to help level the surface, subject to advice from the relevant maintenance staff.",
+  title: "FOOTBALL FIELD IMPROVEMENT", category: "Future",
+  status: "DELAYED",
+  description: "An improvement to the football field to address uneven areas, slippery sections and places where water collects after rain. One possible approach is to redistribute suitable soil from higher areas into lower areas to help level the surface, subject to advice from the relevant maintenance staff. Mr Robert estimates this may take 2–3 years because the school is prioritising other areas and does not currently have budget for the field work.",
   mechanism: ["Observe after rain", "Identify problem areas", "Discuss with maintenance", "Improve the surface"],
   note: "This proposal was brought forward by Raaghav, who should receive credit for identifying the issue and suggesting the improvement."
 },
@@ -82,7 +82,7 @@ const PROPOSAL_UPDATES = {
   "02": { current: "Proposed; a school discussion date is not recorded yet.", contact: "Relevant club or school staff — contact not confirmed.", next: "Discuss the format and feasibility with the staff responsible for Homework Club.", nextUpdate: "After a discussion date is arranged." },
   "03": { current: "Proposed; feasibility and funding are not confirmed.", contact: "Student Council / school staff — contact not confirmed.", next: "Check approval, hosting and funding requirements.", nextUpdate: "After the feasibility check." },
   "04": { current: "Confirmed arrangement; a later review date is not recorded.", contact: "Canteen liaison — contact not recorded.", next: "Check that the twice-weekly availability continues as agreed.", nextUpdate: "At the next canteen check-in; date not confirmed." },
-  "05": { current: "Proposed; a maintenance review date is not recorded yet.", contact: "Relevant maintenance staff — contact not confirmed.", next: "Ask maintenance staff to assess the field conditions and safe options.", nextUpdate: "After a maintenance review is arranged." },
+  "05": { current: "Deferred; Mr Robert estimates 2–3 years because the school is prioritising other areas. No cost estimate or field budget is recorded.", contact: "Mr Robert shared the estimate; a work owner is not confirmed.", next: "Revisit the field work when current school priorities and budget allow.", nextUpdate: "When budget priorities are reviewed; no date is confirmed." },
   "06": { current: "Proposed; a school discussion date is not recorded yet.", contact: "Staff responsible for announcements — contact not confirmed.", next: "Check the announcement process and a reliable weather / air-quality source.", nextUpdate: "After a discussion date is arranged." },
   "07": { current: "Proposed collaboration; format and approval are not confirmed.", contact: "Mr Robert / Student Council — discussion date not recorded.", next: "Discuss a suitable format, topics and approval process.", nextUpdate: "After a discussion date is arranged." }
 };
@@ -150,6 +150,7 @@ const STUDENT_COUNCIL_URL = "PASTE-YOUR-STUDENT-COUNCIL-WEBSITE-HERE";
 const STATUS_META = {
   "PROPOSED":     { emoji: "🟡", label: "Proposed",      class: "status-proposed" },
   "DISCUSSION":   { emoji: "🟠", label: "In discussion",  class: "status-discussion" },
+  "DELAYED":      { emoji: "⏳", label: "Delayed",       class: "status-delayed" },
   "CONFIRMED":    { emoji: "🟢", label: "Confirmed",      class: "status-confirmed" },
   "IMPLEMENTED":  { emoji: "🟢", label: "Implemented",    class: "status-confirmed" },
   "NOT APPROVED": { emoji: "🔴", label: "Not approved",   class: "status-notapproved" }
@@ -184,7 +185,7 @@ function renderProposalCards() {
   container.innerHTML = "";
   if (filters) filters.innerHTML = "";
 
-  const categories = ["Idea", "Question", "Problem", "Suggestion", "Other"];
+  const categories = ["Idea", "Question", "Problem", "Suggestion", "Future", "Other"];
   const isResolved = (item) => ["CONFIRMED", "IMPLEMENTED", "NOT APPROVED"].includes(item.status);
   const filterButtons = [];
   const all = document.createElement("button");
@@ -212,9 +213,10 @@ function renderProposalCards() {
       filters.appendChild(button); filterButtons.push([category, button]);
     }
 
-    const openItems = items.filter((item) => !isResolved(item));
+    const delayedItems = items.filter((item) => item.status === "DELAYED");
+    const openItems = items.filter((item) => !isResolved(item) && item.status !== "DELAYED");
     const resolvedItems = items.filter(isResolved);
-    [["In progress", openItems], ["Resolved", resolvedItems]].forEach(([label, subset]) => {
+    [["In progress", openItems], ["Future / delayed", delayedItems], ["Resolved", resolvedItems]].forEach(([label, subset]) => {
       if (!subset.length) return;
       const statusGroup = document.createElement("div");
       statusGroup.className = "proposal-status-group";
