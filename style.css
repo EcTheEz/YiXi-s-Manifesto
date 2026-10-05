@@ -714,3 +714,4 @@ a:focus-visible, button:focus-visible {
 .card-progress-update dt { color: var(--brass); font-size: .75rem; font-weight: 700; }
 .card-progress-update dd { margin: 0; color: var(--text); font-size: .85rem; line-height: 1.55; }
 @media (max-width: 480px) { .card-progress-update dl > div { grid-template-columns: 1fr; gap: .15rem; } }
+.status-delayed { color: var(--brass); border-color: rgba(213,181,111,.45); background: rgba(213,181,111,.1); }
